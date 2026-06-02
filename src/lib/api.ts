@@ -8,7 +8,7 @@
  * - Typed request/response interfaces
  */
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || '';
 
 /** Default request timeout (ms) */
 const REQUEST_TIMEOUT = 10_000;
