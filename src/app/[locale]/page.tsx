@@ -14,7 +14,7 @@ import type { GeneratedQuiz } from '@/lib/types';
 export const dynamic = 'force-dynamic';
 
 /** Polling interval in milliseconds */
-const POLL_INTERVAL = 2000;
+const POLL_INTERVAL = 5000;
 /** Maximum polling duration before timeout (ms) */
 const POLL_TIMEOUT = 120_000;
 

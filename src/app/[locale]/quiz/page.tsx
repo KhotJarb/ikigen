@@ -15,7 +15,7 @@ import type { QuizQuestion } from '@/lib/types';
 export const dynamic = 'force-dynamic';
 
 /** Polling interval for analysis task status */
-const POLL_INTERVAL = 2000;
+const POLL_INTERVAL = 5000;
 const POLL_TIMEOUT = 120_000;
 
 type QuizState = 'quiz' | 'submitting' | 'error';
