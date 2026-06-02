@@ -11,7 +11,7 @@
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || '';
 
 /** Default request timeout (ms) */
-const REQUEST_TIMEOUT = 10_000;
+const REQUEST_TIMEOUT = 60_000;
 
 /** Max retries for transient errors */
 const MAX_RETRIES = 1;
