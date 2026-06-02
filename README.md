@@ -357,7 +357,7 @@ Contributions are welcome! Whether it's fixing a bug, adding a translation, or i
 
 ## 📄 License
 
-This project is licensed under the **MIT License** — see the [LICENSE](LICENSE) file for details.
+This project is licensed under the **MIT License**
 
 ---
 
