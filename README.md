@@ -9,7 +9,7 @@
 [![Next.js](https://img.shields.io/badge/Next.js-16-black?style=for-the-badge&logo=next.js)](https://nextjs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white)](https://tailwindcss.com/)
-[![FastAPI](https://img.shields.io/badge/FastAPI-0.115-009688?style=for-the-badge&logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/)
+[![Upstash](https://img.shields.io/badge/Upstash-Redis-00E9A3?style=for-the-badge&logo=redis&logoColor=white)](https://upstash.com/)
 [![Vercel](https://img.shields.io/badge/Vercel-Deploy-000?style=for-the-badge&logo=vercel)](https://vercel.com/)
 [![License](https://img.shields.io/badge/License-MIT-F472B6?style=for-the-badge)](LICENSE)
 
@@ -29,7 +29,7 @@
 
 ## ✨ What is IkiGen?
 
-IkiGen is a full-stack, AI-driven platform that helps users discover their **Ikigai** — the sweet spot where passion, talent, purpose, and livelihood converge. Through an intelligent questionnaire generated uniquely for each user, followed by deep AI analysis, IkiGen delivers a personalized, beautifully-presented life purpose assessment.
+IkiGen is an AI-driven web app built with **Next.js** that helps users discover their **Ikigai** — the sweet spot where passion, talent, purpose, and livelihood converge. Through an intelligent questionnaire generated uniquely for each user, followed by deep AI analysis, IkiGen delivers a personalized, beautifully-presented life purpose assessment.
 
 The experience is designed to feel like a premium digital journey — from a serene landing page with falling sakura petals, through a thoughtful quiz, to a cinematic, story-driven reveal of your results.
 
@@ -64,42 +64,30 @@ Purpose-built social sharing experience with:
 - **Facebook** — Open Graph-ready sharing
 - **LINE** — native LINE message sharing (popular in Japan & Thailand)
 
-### ⚡ Asynchronous Processing
-Heavy AI analysis runs in the background via **Celery** workers with **Redis** (Upstash) as the message broker. The frontend polls task status with an elegant loading animation, ensuring the UI never blocks.
+### ⚡ Serverless Architecture
+AI analysis is powered by **Next.js API Routes** with **Upstash Redis** for caching and session management. The entire app deploys as a single unit on **Vercel** — no separate backend required.
 
 ---
 
 ## 🛠 Tech Stack
 
-### Frontend
 | Technology | Version | Purpose |
 |---|---|---|
-| **Next.js** | 16 (App Router) | React framework with SSR/SSG |
+| **Next.js** | 16 (App Router) | Full-stack framework (pages + API routes) |
 | **React** | 19 | UI rendering |
 | **TypeScript** | 5 | Type safety |
 | **Tailwind CSS** | 4 | Utility-first styling |
 | **Framer Motion** | 12 | Animations & transitions |
-| **next-intl** | 4 | Internationalization |
+| **next-intl** | 4 | Internationalization (EN, JA, TH) |
 | **Recharts** | 2 | Radar chart visualization |
 | **html-to-image** | 1.11 | PNG export |
-
-### Backend
-| Technology | Version | Purpose |
-|---|---|---|
-| **FastAPI** | 0.115 | REST API framework |
-| **Celery** | 5.4 | Async task queue |
-| **Redis** | 5.1 (hiredis) | Message broker & result store |
-| **Pydantic** | 2.9 | Data validation |
-| **Google GenAI** | 1.0 | Gemini API client |
-| **OpenAI SDK** | 1.51 | DeepSeek fallback client |
-| **SlowAPI** | 0.1.9 | Rate limiting |
-| **Tenacity** | 8.5 | Retry logic |
+| **Upstash Redis** | Serverless | Caching & session management |
+| **Google Gemini** | 2.5 Flash | AI quiz generation & analysis |
 
 ### Infrastructure
 | Service | Tier | Purpose |
 |---|---|---|
-| **Vercel** | Free Hobby | Frontend hosting |
-| **Render** | Free Web Service | Backend + Celery (single container) |
+| **Vercel** | Free Hobby | Full-stack hosting (SSR + API routes) |
 | **Upstash** | Free Redis | Serverless Redis with TLS |
 
 ---
@@ -111,97 +99,39 @@ Heavy AI analysis runs in the background via **Celery** workers with **Redis** (
 ### Prerequisites
 
 - **Node.js** ≥ 18.17
-- **Python** ≥ 3.11
-- **Redis** (local or [Upstash](https://upstash.com/) free tier)
 - A **Gemini API key** from [Google AI Studio](https://aistudio.google.com/)
+- An **Upstash Redis** database ([free tier](https://upstash.com/))
 
-### 1. Clone the Repository
+### 1. Clone & Install
 
 ```bash
 git clone https://github.com/your-username/ikigen.git
 cd ikigen
-```
-
-### 2. Backend Setup
-
-```bash
-cd backend
-python -m venv venv
-venv\Scripts\activate          # Windows
-# source venv/bin/activate     # macOS/Linux
-pip install -r requirements.txt
-```
-
-Create `backend/.env`:
-
-```env
-# === AI API Keys ===
-GEMINI_API_KEY=your_gemini_api_key_here
-DEEPSEEK_API_KEY=your_deepseek_api_key_here    # Optional fallback
-
-# === AI Models ===
-GEMINI_MODEL=gemini-2.5-flash
-DEEPSEEK_MODEL=deepseek-chat
-DEEPSEEK_BASE_URL=https://api.deepseek.com
-
-# === Redis ===
-REDIS_URL=redis://localhost:6379/0
-
-# === Server ===
-API_HOST=0.0.0.0
-API_PORT=8000
-FRONTEND_URL=http://localhost:3000
-DEBUG=true
-
-# === Rate Limiting ===
-RATE_LIMIT_PER_MINUTE=10
-RATE_LIMIT_PER_HOUR=50
-```
-
-### 3. Frontend Setup
-
-```bash
-cd frontend
 npm install
 ```
 
-Create `frontend/.env`:
+### 2. Configure Environment Variables
+
+Create a `.env.local` file in the project root:
 
 ```env
-NEXT_PUBLIC_API_URL=http://localhost:8000
+# === AI ===
+GEMINI_API_KEY=your_gemini_api_key_here
+
+# === Upstash Redis ===
+UPSTASH_REDIS_REST_URL=https://your-endpoint.upstash.io
+UPSTASH_REDIS_REST_TOKEN=your_upstash_rest_token_here
 ```
 
-### 4. Start Development Servers
+> **💡 Tip:** Get your Gemini API key from [Google AI Studio](https://aistudio.google.com/) and create a free Redis database at [Upstash Console](https://console.upstash.com/).
 
-**Option A: 1-Click Launch (Windows)**
-
-```bash
-# From the project root
-run_ikigen.bat
-```
-
-This opens 3 terminal windows (Redis, Celery, FastAPI) and launches the Next.js dev server.
-
-**Option B: Manual Launch**
+### 3. Run the Development Server
 
 ```bash
-# Terminal 1: Redis
-redis-server
-
-# Terminal 2: Celery worker
-cd backend
-celery -A app.tasks.celery_app worker --loglevel=info --pool=solo
-
-# Terminal 3: FastAPI
-cd backend
-uvicorn app.main:app --reload --port 8000
-
-# Terminal 4: Next.js
-cd frontend
 npm run dev
 ```
 
-### 5. Open the App
+### 4. Open the App
 
 Navigate to **[http://localhost:3000](http://localhost:3000)** 🌸
 
@@ -211,93 +141,72 @@ Navigate to **[http://localhost:3000](http://localhost:3000)** 🌸
 
 ```
 ikigen/
-├── frontend/                      # Next.js 16 frontend
-│   ├── src/
-│   │   ├── app/
-│   │   │   ├── [locale]/          # Locale-based routing
-│   │   │   │   ├── page.tsx       # 🏠 Landing page
-│   │   │   │   ├── quiz/page.tsx  # 📝 Quiz page
-│   │   │   │   ├── results/page.tsx # 📊 Results page
-│   │   │   │   └── layout.tsx     # Root layout with i18n provider
-│   │   │   └── globals.css        # Design system & glass tokens
-│   │   ├── components/
-│   │   │   ├── SakuraBackground.tsx   # 🌸 Custom canvas particle system
-│   │   │   ├── LandingInput.tsx       # ✍️  Glassmorphism text input
-│   │   │   ├── QuizCard.tsx           # 🃏 Animated quiz question card
-│   │   │   ├── RadarChart.tsx         # 📊 i18n-ready Recharts radar
-│   │   │   ├── ResultSlides.tsx       # 🎴 Cinematic insight cards
-│   │   │   ├── ShareModal.tsx         # 🔗 Social share modal
-│   │   │   ├── ShareButton.tsx        # 📤 Download + share buttons
-│   │   │   ├── LanguageSwitcher.tsx   # 🌍 EN/JA/TH selector
-│   │   │   ├── LoadingScreen.tsx      # ⏳ Animated loading overlay
-│   │   │   └── ProgressBar.tsx        # 📏 Quiz progress indicator
-│   │   ├── i18n/
-│   │   │   ├── messages/
-│   │   │   │   ├── en.json            # 🇬🇧 English (63 keys)
-│   │   │   │   ├── ja.json            # 🇯🇵 Japanese (63 keys)
-│   │   │   │   └── th.json            # 🇹🇭 Thai (63 keys)
-│   │   │   └── routing.ts            # Locale routing config
-│   │   └── lib/
-│   │       ├── api.ts                 # API client (fetch + polling)
-│   │       └── types.ts               # TypeScript interfaces
-│   ├── vercel.json                    # Vercel deployment config
-│   └── package.json
-│
-├── backend/                       # FastAPI + Celery backend
+├── src/
 │   ├── app/
-│   │   ├── main.py                # FastAPI app + CORS + startup
-│   │   ├── config.py              # Pydantic settings (Redis/AI)
-│   │   ├── api/                   # REST API route handlers
-│   │   ├── services/              # AI generation & analysis logic
-│   │   ├── tasks/                 # Celery task definitions
-│   │   ├── schemas/               # Pydantic request/response models
-│   │   └── middleware/            # Rate limiting & logging
-│   ├── requirements.txt
-│   ├── start.sh                   # Render dual-process launcher
-│   └── .gitattributes             # LF enforcement for shell scripts
-│
-├── render.yaml                    # Render Blueprint (free tier)
-├── docker-compose.yml             # Local Docker setup
-├── run_ikigen.bat                 # 🚀 Windows 1-click launcher
-├── stop_ikigen.bat                # 🛑 Graceful shutdown script
-└── .env.example                   # Environment variable template
+│   │   ├── [locale]/              # Locale-based routing
+│   │   │   ├── page.tsx           # 🏠 Landing page
+│   │   │   ├── quiz/page.tsx      # 📝 Quiz page
+│   │   │   ├── results/page.tsx   # 📊 Results page
+│   │   │   └── layout.tsx         # Root layout with i18n provider
+│   │   ├── api/                   # Next.js API routes (serverless)
+│   │   └── globals.css            # Design system & glass tokens
+│   ├── components/
+│   │   ├── SakuraBackground.tsx   # 🌸 Custom canvas particle system
+│   │   ├── LandingInput.tsx       # ✍️  Glassmorphism text input
+│   │   ├── QuizCard.tsx           # 🃏 Animated quiz question card
+│   │   ├── RadarChart.tsx         # 📊 i18n-ready Recharts radar
+│   │   ├── ResultSlides.tsx       # 🎴 Cinematic insight cards
+│   │   ├── ShareModal.tsx         # 🔗 Social share modal
+│   │   ├── ShareButton.tsx        # 📤 Download + share buttons
+│   │   ├── LanguageSwitcher.tsx   # 🌍 EN/JA/TH selector
+│   │   ├── LoadingScreen.tsx      # ⏳ Animated loading overlay
+│   │   └── ProgressBar.tsx        # 📏 Quiz progress indicator
+│   ├── i18n/
+│   │   ├── messages/
+│   │   │   ├── en.json            # 🇬🇧 English (63 keys)
+│   │   │   ├── ja.json            # 🇯🇵 Japanese (63 keys)
+│   │   │   └── th.json            # 🇹🇭 Thai (63 keys)
+│   │   └── routing.ts            # Locale routing config
+│   └── lib/
+│       ├── api.ts                 # API client (fetch + polling)
+│       └── types.ts               # TypeScript interfaces
+├── public/                        # Static assets
+├── vercel.json                    # Vercel deployment config
+├── package.json
+├── tsconfig.json
+└── .env.local                     # Environment variables (git-ignored)
 ```
 
 ---
 
 ## 🌐 Deployment (100% Free)
 
-IkiGen is designed to run entirely on **free-tier** cloud infrastructure:
+IkiGen deploys as a single unit on **Vercel** with **Upstash Redis** — no separate backend required.
 
 ```
-┌──────────────────┐       ┌──────────────────────────────┐
-│     Vercel        │ HTTPS │  Render Free Web Service      │
-│  ┌──────────────┐ │──────▶│  ┌────────┐  ┌────────────┐  │
-│  │  Next.js 16  │ │       │  │ FastAPI │  │ Celery     │  │
-│  │  React 19    │ │       │  │ (fg)    │  │ (bg &)     │  │
-│  │  Tailwind v4 │ │       │  └────┬───┘  └─────┬──────┘  │
-│  └──────────────┘ │       │       └──────┬──────┘         │
-│  FREE Hobby       │       │              │                │
-└──────────────────┘       │    ┌─────────▼──────────┐     │
-                            │    │ Upstash Redis (TLS)│     │
-                            │    │ rediss://...        │     │
-                            │    └────────────────────┘     │
-                            │    FREE Serverless            │
-                            └──────────────────────────────┘
+┌───────────────────────────────────┐
+│           Vercel (Free)           │
+│  ┌─────────────┐  ┌────────────┐  │
+│  │  Next.js 16 │  │ API Routes │  │
+│  │  React 19   │  │ (Gemini AI)│  │
+│  │  Tailwind v4│  │ Serverless │  │
+│  └─────────────┘  └──────┬─────┘  │
+│                          │        │
+│         ┌────────────────▼─────┐  │
+│         │  Upstash Redis (TLS) │  │
+│         │  REST API · Free     │  │
+│         └──────────────────────┘  │
+└───────────────────────────────────┘
 ```
-
-> **💡 Free Tier Hack:** FastAPI and Celery both run inside a single Render Web Service container using `start.sh`, which launches Celery as a background process and Uvicorn as the foreground process. This bypasses Render's paid Background Worker requirement.
 
 ### Quick Deploy Steps
 
 | Step | Service | Time | Action |
 |------|---------|------|--------|
-| 1 | **Upstash** | ~2 min | Create free Redis → copy `rediss://` URL |
-| 2 | **Render** | ~5 min | Blueprint from `render.yaml` → paste Redis URL + API keys |
-| 3 | **Vercel** | ~3 min | Import repo → root `frontend/` → set `NEXT_PUBLIC_API_URL` |
-| 4 | **CORS** | ~1 min | Set `FRONTEND_URL` in Render to your Vercel domain |
+| 1 | **Upstash** | ~2 min | Create free Redis → copy REST URL + Token |
+| 2 | **Vercel** | ~3 min | Import repo → add env vars (`GEMINI_API_KEY`, `UPSTASH_REDIS_REST_URL`, `UPSTASH_REDIS_REST_TOKEN`) |
 
-**Total time: ~11 minutes · Total cost: $0/month** 🎉
+**Total time: ~5 minutes · Total cost: $0/month** 🎉
 
 ---
 
@@ -311,8 +220,7 @@ IkiGen is designed to run entirely on **free-tier** cloud infrastructure:
 - [x] Cinematic, story-driven results presentation
 - [x] Custom social share modal (X, Facebook, LINE, Copy Link)
 - [x] Downloadable PNG results export
-- [x] 100% free-tier cloud deployment (Vercel + Render + Upstash)
-- [x] 1-click local development scripts (Windows)
+- [x] 100% free-tier cloud deployment (Vercel + Upstash)
 
 ### 🔮 Coming Soon — v0.2
 
