@@ -1,0 +1,160 @@
+@import "tailwindcss";
+
+@theme inline {
+  /* IkiGen Sakura color palette */
+  --color-sakura-50: #fef2f4;
+  --color-sakura-100: #fde6ea;
+  --color-sakura-200: #fccdd6;
+  --color-sakura-300: #f9a8b8;
+  --color-sakura-400: #f47a98;
+  --color-sakura-500: #ea4c7a;
+  --color-sakura-600: #d72a63;
+  --color-sakura-700: #b51d51;
+  --color-sakura-800: #971b49;
+  --color-sakura-900: #801b44;
+
+  /* Ikigai pillar colors */
+  --color-ikigai-love: #f472b6;
+  --color-ikigai-good: #818cf8;
+  --color-ikigai-need: #34d399;
+  --color-ikigai-paid: #fbbf24;
+
+  /* Font families */
+  --font-sans: 'Inter', 'Noto Sans JP', 'Noto Sans Thai', system-ui, -apple-system, sans-serif;
+
+  /* Custom animations */
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-pulse-glow: pulse-glow 3s ease-in-out infinite;
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+
+  @keyframes pulse-glow {
+    0%, 100% { box-shadow: 0 0 20px rgba(244, 122, 152, 0.3); }
+    50% { box-shadow: 0 0 40px rgba(244, 122, 152, 0.5), 0 0 80px rgba(244, 122, 152, 0.2); }
+  }
+}
+
+/* GPU compositing hint for pulse-glow animation */
+.animate-pulse-glow {
+  will-change: box-shadow;
+}
+
+:root {
+  /* Glass design tokens — refined for dark mode glassmorphism */
+  --glass-bg: rgba(255, 255, 255, 0.04);
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --glass-shadow: 0 8px 40px rgba(0, 0, 0, 0.35);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-sans);
+}
+
+/* Glassmorphism utility */
+.glass {
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
+}
+
+.glass-light {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Glow effects */
+.glow-sakura {
+  box-shadow: 0 0 20px rgba(244, 122, 152, 0.3), 0 0 60px rgba(244, 122, 152, 0.1);
+}
+
+.glow-text {
+  text-shadow: 0 0 40px rgba(244, 122, 152, 0.4);
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+/* Shimmer text animation */
+@keyframes shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+.animate-shimmer {
+  background: linear-gradient(
+    90deg,
+    rgba(244, 122, 152, 0.4) 0%,
+    rgba(255, 255, 255, 0.8) 50%,
+    rgba(244, 122, 152, 0.4) 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer 3s ease-in-out infinite;
+}
+
+/* Focus glow ring for inputs */
+.focus-glow:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(244, 122, 152, 0.3), 0 0 20px rgba(244, 122, 152, 0.15);
+}
+
+/* Textarea custom styling */
+textarea.glass-input {
+  background: rgba(15, 15, 35, 0.5);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: all 0.3s ease;
+  resize: vertical;
+}
+
+textarea.glass-input:focus {
+  border-color: rgba(244, 122, 152, 0.4);
+  box-shadow: 0 0 0 2px rgba(244, 122, 152, 0.15), 0 0 30px rgba(244, 122, 152, 0.1);
+}
+
+textarea.glass-input::placeholder {
+  color: rgba(148, 163, 184, 0.5);
+}
+
+/* Loading dot animation */
+@keyframes bounce-dot {
+  0%, 80%, 100% { transform: scale(0.6); opacity: 0.4; }
+  40% { transform: scale(1); opacity: 1; }
+}
+
+.loading-dot {
+  animation: bounce-dot 1.4s ease-in-out infinite both;
+}
+
+.loading-dot:nth-child(1) { animation-delay: -0.32s; }
+.loading-dot:nth-child(2) { animation-delay: -0.16s; }
+.loading-dot:nth-child(3) { animation-delay: 0s; }

@@ -1,0 +1,79 @@
+{
+  "landing": {
+    "title": "あなたの生きがいを発見",
+    "subtitle": "存在する理由",
+    "description": "あなたが愛するもの、得意なこと、世界が必要としていること、そして報酬を得られることの交差点を見つけましょう。",
+    "placeholder": "今何をしていますか？興味があることは？あなたの最大の夢は？",
+    "submit": "旅を始める",
+    "loading": "あなただけの旅を作成中...",
+    "loadingHint": "通常15〜30秒かかります...",
+    "submitHint": "Ctrl + Enter で送信",
+    "errorTitle": "問題が発生しました",
+    "errorMessage": "診断を生成できませんでした。もう一度お試しください。",
+    "retry": "再試行",
+    "poweredBy": "AIによる分析 · 生き甲斐にインスパイア"
+  },
+  "quiz": {
+    "title": "生きがい診断",
+    "progress": "質問 {current} / {total}",
+    "next": "次へ",
+    "previous": "前へ",
+    "submit": "生きがいを見る",
+    "otherPlaceholder": "自分の答えを入力...",
+    "other": "その他",
+    "noQuizData": "クイズデータが見つかりません。最初からやり直してください。",
+    "goBack": "最初に戻る",
+    "analyzing": "生きがいを分析中...",
+    "analyzingHint": "AIがあなたの個別の洞察を作成中です...",
+    "answered": "{count} / {total} 回答済み",
+    "pillarLabels": {
+      "love": "好きなこと",
+      "good": "得意なこと",
+      "need": "世界が必要としていること",
+      "paid": "お金になること"
+    }
+  },
+  "results": {
+    "title": "あなたの生きがい",
+    "subtitle": "あなたらしさを形作るもの。",
+    "archetype": "あなたの生きがいタイプ",
+    "strengths": "あなたの強み",
+    "growthAreas": "成長の機会",
+    "guidance": "個人ガイダンス",
+    "actionSteps": "次のステップ",
+    "insightCards": "生きがいの洞察",
+    "radarTitle": "生きがいバランス",
+    "noResultData": "結果が見つかりません。まず診断を受けてください。",
+    "goBack": "診断を受ける",
+    "pillars": {
+      "love": "好きなこと",
+      "good": "得意なこと",
+      "need": "世界が必要としていること",
+      "paid": "お金になること"
+    },
+    "share": "生きがいをシェア",
+    "download": "画像としてダウンロード",
+    "restart": "最初から",
+    "downloadSuccess": "画像を保存しました！",
+    "shareTitle": "IkiGenの生きがい結果",
+    "shareText": "私の生きがいを発見しました！IkiGenであなたも見つけてみてください。",
+    "shareTextWithPillar": "私の生きがいを発見しました！注目のポイント: {pillar}。IkiGenであなたも見つけてみてください。",
+    "copied": "リンクをコピーしました！",
+    "copyLink": "リンクをコピー",
+    "shareModal": {
+      "title": "生きがいをシェア",
+      "copyLink": "リンクをコピー",
+      "copied": "コピーしました！",
+      "twitter": "X（Twitter）でシェア",
+      "facebook": "Facebookでシェア",
+      "line": "LINEでシェア",
+      "close": "閉じる",
+      "hint": "結果を友達にシェアして、インスピレーションを与えましょう。"
+    },
+    "footer": "IkiGen · AI生きがい発見で生成"
+  },
+  "common": {
+    "appName": "IkiGen",
+    "tagline": "AI生きがい発見"
+  }
+}
