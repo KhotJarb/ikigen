@@ -94,7 +94,7 @@ AI analysis is powered by **Next.js API Routes** with **Upstash Redis** for cach
 
 ## 🚀 Getting Started
 
-> **⚡ Just want to try it?** Skip the setup and **[experience IkiGen live](https://ikigen-chi.vercel.app/)** — no installation required.
+**⚡ Just want to try it?** Skip the setup and **[Experience IkiGen live](https://ikigen-chi.vercel.app/)** — no installation required.
 
 ### Prerequisites
 
